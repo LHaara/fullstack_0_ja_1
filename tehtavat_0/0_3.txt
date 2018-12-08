@@ -1,0 +1,35 @@
+käyttäjä->selain:
+note left of selain
+käyttäjä kirjottaa osoiteriville
+https://fullstack-exampleapp.herokuapp.com/notes
+end note
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+ muodostetaan HTML mikä sisältää head-osion 
+ josta löytyy link-tagin sekä script-tagi
+end note
+palvelin->selain: status 200, muodostettu HTML-koodi
+note right of selain
+ selain tulkitsee HTML-koodin head-osion ja pyytää sen
+ perusteella palvelimelta main.css tiedoston ja 
+ tämän jälkeen main.js tiedoston
+end note
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200, text/css tyylitiedosto
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200, javascript-tiedosto
+
+note right of selain
+ selain suorittaa lataamansa javascript koodin ja sen perusteella
+ tekee GET-tyyppisen HTTP-pyynnön palvelimen osoitteeseen /data.json 
+end note
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200, json-tiedosto
+
+note left of selain
+ selain muodostaa ladatun datan avulla listan .json tiedostossa
+ olevista muistiinpanoista javascript koodin aikaansaamana.
+ Tämän jälkeen selain näyttää valmiin sivun käyttäjälle
+end note

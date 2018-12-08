@@ -1,0 +1,21 @@
+käyttäjä->selain:
+note left of selain
+käyttäjä kirjoittaa sivun:
+https://fullstack-exampleapp.herokuapp.com/spa
+tekstikenttään 'The Dude abides' ja painaa nappia Talleta.
+end note
+note right of selain
+ selain tekee JSON-muodossa olevan muistiinpanon sisältävän
+ HTTP POST-pyynnön osoitteeseen
+ https://fullstack-exampleapp.herokuapp.com/new_note_spa
+ Pyyntöön liitetty otsikkotieto Content-Type kertoo palvelimelle
+ pyynnön olevan JSON-muotoista.
+end note
+note left of selain
+ selain piirtää muistinpanojen sisällön uudelleen ja näyttää sen käyttäjälle
+end note
+selain->palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+note left of palvelin
+    palvelin vastaa statuskoodilla 201 created
+end note
+palvelin->selain: status 201, created

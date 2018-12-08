@@ -1,0 +1,48 @@
+käyttäjä->selain:
+note left of selain
+käyttäjä kirjoittaa sivun:
+https://fullstack-exampleapp.herokuapp.com/notes
+tekstikenttään 'The Dude abides' ja painaa nappia Talleta.
+end note
+note right of selain
+ selain tekee HTTP POST-pyynnön osoitteeseen
+ https://fullstack-exampleapp.herokuapp.com/new_note
+end note
+selain->palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note
+note left of palvelin
+    palvelin vastaa uudelleenohjauspyynnöllä (status 302) (/notes)
+end note
+palvelin->selain: status 302, Location: /notes
+
+note right of selain
+ selain tekee automaattisesti uuden HTTP-get-pyynnön 
+end note
+
+selain->palvelin: https://fullstack-exampleapp.herokuapp.com/notes
+palvelin->selain: status 304, muodostettu HTML-koodi
+
+note right of selain
+ selain tulkitsee HTML-koodin head-osion ja pyytää sen
+ perusteella palvelimelta main.css tiedoston ja 
+ tämän jälkeen main.js tiedoston
+end note
+
+selain->palvelin: https://fullstack-exampleapp.herokuapp.com/notes
+palvelin->selain: status 304, CSS-tyylitiedosto
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 304, javascript-tiedosto
+
+note right of selain
+ selain suorittaa lataamansa javascript koodin ja sen perusteella
+ tekee GET-tyyppisen HTTP-pyynnön palvelimen osoitteeseen /data.json 
+end note
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200, json-tiedosto
+
+note left of selain
+ selain muodostaa ladatun datan avulla listan päivitetyssä .json tiedostossa
+ olevista muistiinpanoista javascript koodin aikaansaamana.
+ Tämän jälkeen selain näyttää valmiin sivun käyttäjälle
+end note
